@@ -1,0 +1,67 @@
+[
+  {
+    "id": "MR-CB",
+    "name": "Citrus Base",
+    "version": 3,
+    "productMaterial": "IM-CITRUS-BASE",
+    "unitProcedures": [
+      {
+        "id": "MR-CB.UP-REACT",
+        "name": "Reaction",
+        "unit": "R101",
+        "operations": [
+          {"id": "MR-CB.OP-CHARGE", "name": "Charge", "phases": [
+            {"id": "MR-CB.PH-DOSE", "name": "Dose raw materials", "type": "DOSE", "equipmentModule": "R101-DOSE",
+             "startMin": 0, "durationMin": 30, "setpoints": {"amount_kg": 1000}}
+          ]},
+          {"id": "MR-CB.OP-REACT", "name": "React", "phases": [
+            {"id": "MR-CB.PH-HEAT", "name": "Heat", "type": "HEAT", "equipmentModule": "R101-TEMP",
+             "startMin": 30, "durationMin": 60, "setpoints": {"temperature_c": 85}},
+            {"id": "MR-CB.PH-HOLD", "name": "Hold", "type": "HOLD", "equipmentModule": "R101-TEMP",
+             "startMin": 90, "durationMin": 90, "setpoints": {"temperature_c": 85, "hold_min": 90}},
+            {"id": "MR-CB.PH-AGIT", "name": "Agitate", "type": "AGITATE", "equipmentModule": "R101-AGIT",
+             "startMin": 30, "durationMin": 195, "setpoints": {"speed_rpm": 120}}
+          ]},
+          {"id": "MR-CB.OP-COOL", "name": "Cool down", "phases": [
+            {"id": "MR-CB.PH-COOL", "name": "Cool", "type": "COOL", "equipmentModule": "R101-TEMP",
+             "startMin": 180, "durationMin": 45, "setpoints": {"temperature_c": 30}}
+          ]}
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MR-LC",
+    "name": "Lemon Compound",
+    "version": 1,
+    "productMaterial": "FG-LEMON-COMPOUND",
+    "unitProcedures": [
+      {
+        "id": "MR-LC.UP-BLEND",
+        "name": "Blending",
+        "unit": "M201",
+        "operations": [
+          {"id": "MR-LC.OP-CHARGE", "name": "Charge", "phases": [
+            {"id": "MR-LC.PH-DOSE", "name": "Dose components", "type": "DOSE", "equipmentModule": "M201-DOSE",
+             "startMin": 0, "durationMin": 20, "setpoints": {"amount_kg": 850}}
+          ]},
+          {"id": "MR-LC.OP-BLEND", "name": "Blend", "phases": [
+            {"id": "MR-LC.PH-MIX", "name": "Mix", "type": "MIX", "equipmentModule": "M201-AGIT",
+             "startMin": 20, "durationMin": 60, "setpoints": {"speed_rpm": 200, "max_temperature_c": 35}}
+          ]}
+        ]
+      },
+      {
+        "id": "MR-LC.UP-STORE",
+        "name": "Storage",
+        "unit": "T301",
+        "operations": [
+          {"id": "MR-LC.OP-TRANSFER", "name": "Transfer", "phases": [
+            {"id": "MR-LC.PH-TRANSFER", "name": "Transfer to tank", "type": "TRANSFER", "equipmentModule": "T301-FILL",
+             "startMin": 80, "durationMin": 30, "setpoints": {"amount_kg": 850}}
+          ]}
+        ]
+      }
+    ]
+  }
+]

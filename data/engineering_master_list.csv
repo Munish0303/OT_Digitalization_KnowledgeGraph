@@ -1,0 +1,27 @@
+id,name,level,parent_id,valid_from
+GIV,Givaudan,Enterprise,,2020-01-01
+DOR,Dortmund Site,Site,GIV,2020-01-01
+PROD,Production,Area,DOR,2020-01-01
+PC01,Compounding,ProcessCell,PROD,2020-01-01
+R101,Reactor R-101,Unit,PC01,2020-01-01
+M201,Mixer M-201,Unit,PC01,2020-01-01
+T301,Storage Tank T-301,Unit,PC01,2020-01-01
+R101-DOSE,R-101 Dosing,EquipmentModule,R101,2020-01-01
+R101-TEMP,R-101 Temperature Control,EquipmentModule,R101,2020-01-01
+R101-AGIT,R-101 Agitation,EquipmentModule,R101,2020-01-01
+M201-DOSE,M-201 Dosing,EquipmentModule,M201,2020-01-01
+M201-AGIT,M-201 Agitation,EquipmentModule,M201,2020-01-01
+T301-FILL,T-301 Filling,EquipmentModule,T301,2020-01-01
+TT101,Temperature Transmitter TT-101,ControlModule,R101-TEMP,2020-01-01
+TV101,Jacket Steam Valve TV-101,ControlModule,R101-TEMP,2020-01-01
+PT102,Pressure Transmitter PT-102,ControlModule,R101-TEMP,2020-01-01
+FT103,Dosing Flow Meter FT-103,ControlModule,R101-DOSE,2020-01-01
+XV104,Dosing Valve XV-104,ControlModule,R101-DOSE,2020-01-01
+M105,Agitator Motor M-105,ControlModule,R101-AGIT,2020-01-01
+FT201,Dosing Flow Meter FT-201,ControlModule,M201-DOSE,2020-01-01
+XV202,Dosing Valve XV-202,ControlModule,M201-DOSE,2020-01-01
+M203,Agitator Motor M-203,ControlModule,M201-AGIT,2020-01-01
+TT204,Temperature Transmitter TT-204,ControlModule,M201-AGIT,2020-01-01
+LT301,Level Transmitter LT-301,ControlModule,T301-FILL,2020-01-01
+TT301,Temperature Transmitter TT-301,ControlModule,T301-FILL,2020-01-01
+XV302,Inlet Valve XV-302,ControlModule,T301-FILL,2020-01-01

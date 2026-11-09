@@ -1,0 +1,107 @@
+# Plant Knowledge Graph prototype.
+# Networks mirror the Purdue zones (ADR-0003): a service is only attached to the zones it may talk to.
+name: isa88-kg
+
+x-python: &python
+  build: ./services
+  image: isa88-kg-python
+  restart: unless-stopped
+  volumes:
+    - ./data:/data:ro
+    - ./generated:/generated
+
+networks:
+  ot_l3: {}      # Level 3  – site operations (Litmus Edge)
+  dmz_l35: {}    # Level 3.5 – industrial DMZ (broker, staging / time-series)
+  it_l4: {}      # Level 4  – enterprise IT (knowledge graph, apps)
+
+volumes:
+  tsdata: {}
+  neo4jdata: {}
+
+services:
+  # ---- Level 3 ------------------------------------------------------------
+  litmus-edge-sim:
+    <<: *python
+    command: python -u edge_sim.py
+    environment:
+      MQTT_HOST: mqtt-broker
+      ACCEL: "60"
+      LIVE: "${LIVE:-0}"   # 0 = only the 30 backfill batches; set LIVE=1 for new batches at 60x
+      LITMUS: "${LITMUS:-0}"  # 1 = real Litmus Edge reads live tags from this service's OPC UA server (port 4840)
+    depends_on: [mqtt-broker]
+    networks: [ot_l3, dmz_l35]   # publishes outbound into the DMZ only
+
+  # ---- Level 3.5 (DMZ) ----------------------------------------------------
+  mqtt-broker:
+    image: eclipse-mosquitto:2.0.20
+    restart: unless-stopped
+    volumes:
+      - ./services/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+    networks: [dmz_l35]
+
+  timescaledb:
+    # Fallback without TimescaleDB: TSDB_IMAGE=postgres:16-alpine docker compose up -d
+    image: ${TSDB_IMAGE:-timescale/timescaledb:2.17.2-pg16}
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: plantdata
+    volumes:
+      - tsdata:/var/lib/postgresql/data
+      - ./services/timescale/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d plantdata"]
+      interval: 3s
+      retries: 30
+    networks: [dmz_l35]
+
+  ingest:
+    <<: *python
+    command: python -u ingest.py
+    environment:
+      MQTT_HOST: mqtt-broker
+      PG_DSN: postgresql://postgres:postgres@timescaledb:5432/plantdata
+    depends_on:
+      timescaledb: {condition: service_healthy}
+      mqtt-broker: {condition: service_started}
+    networks: [dmz_l35]
+
+  # ---- Level 4 (IT) -------------------------------------------------------
+  neo4j:
+    image: neo4j:5.26.0-community
+    restart: unless-stopped
+    environment:
+      NEO4J_AUTH: neo4j/knowledge-graph
+      NEO4J_server_memory_heap_max__size: 1G
+    ports:
+      - "7474:7474"   # Neo4j Browser
+      - "7687:7687"
+    volumes:
+      - neo4jdata:/data
+    networks: [it_l4]
+
+  kg-sync:
+    <<: *python
+    command: python -u sync.py
+    environment:
+      PG_DSN: postgresql://postgres:postgres@timescaledb:5432/plantdata
+      NEO4J_URI: bolt://neo4j:7687
+      NEO4J_AUTH: neo4j/knowledge-graph
+      SYNC_INTERVAL: "10"
+    depends_on:
+      timescaledb: {condition: service_healthy}
+      neo4j: {condition: service_started}
+    networks: [dmz_l35, it_l4]   # pulls from the DMZ, writes in IT
+
+  app:
+    <<: *python
+    command: streamlit run app.py --server.port 8501 --server.address 0.0.0.0 --server.headless true
+    environment:
+      PG_DSN: postgresql://postgres:postgres@timescaledb:5432/plantdata
+      NEO4J_URI: bolt://neo4j:7687
+      NEO4J_AUTH: neo4j/knowledge-graph
+    ports:
+      - "8501:8501"
+    depends_on: [neo4j, timescaledb]
+    networks: [it_l4, dmz_l35]   # reads time series from the DMZ store

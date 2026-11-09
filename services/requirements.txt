@@ -1,0 +1,7 @@
+paho-mqtt==2.1.0
+psycopg[binary]==3.2.3
+neo4j==5.26.0
+streamlit==1.39.0
+pandas==2.2.3
+altair==5.4.1
+asyncua==1.1.5

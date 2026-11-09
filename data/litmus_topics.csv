@@ -1,0 +1,13 @@
+InstanceInfo ID,InstanceInfo Name,Direction,Local Remote Topic,Remote Data Topic,Enable,Description,[inbound]qos,[outbound]qos
+87cc621f-4b90-4358-88bb-b5129fc6b581,uns-broker,outbound,devicehub.alias.PLC_PC01.TV101_OUT,litmus/dortmund/pc01/TV101_OUT,true,,1,1
+87cc621f-4b90-4358-88bb-b5129fc6b581,uns-broker,outbound,devicehub.alias.PLC_PC01.PT102_PV,litmus/dortmund/pc01/PT102_PV,true,,1,1
+87cc621f-4b90-4358-88bb-b5129fc6b581,uns-broker,outbound,devicehub.alias.PLC_PC01.FT103_PV,litmus/dortmund/pc01/FT103_PV,true,,1,1
+87cc621f-4b90-4358-88bb-b5129fc6b581,uns-broker,outbound,devicehub.alias.PLC_PC01.XV104_POS,litmus/dortmund/pc01/XV104_POS,true,,1,1
+87cc621f-4b90-4358-88bb-b5129fc6b581,uns-broker,outbound,devicehub.alias.PLC_PC01.M105_SPEED,litmus/dortmund/pc01/M105_SPEED,true,,1,1
+87cc621f-4b90-4358-88bb-b5129fc6b581,uns-broker,outbound,devicehub.alias.PLC_PC01.FT201_PV,litmus/dortmund/pc01/FT201_PV,true,,1,1
+87cc621f-4b90-4358-88bb-b5129fc6b581,uns-broker,outbound,devicehub.alias.PLC_PC01.XV202_POS,litmus/dortmund/pc01/XV202_POS,true,,1,1
+87cc621f-4b90-4358-88bb-b5129fc6b581,uns-broker,outbound,devicehub.alias.PLC_PC01.M203_SPEED,litmus/dortmund/pc01/M203_SPEED,true,,1,1
+87cc621f-4b90-4358-88bb-b5129fc6b581,uns-broker,outbound,devicehub.alias.PLC_PC01.TT204_PV,litmus/dortmund/pc01/TT204_PV,true,,1,1
+87cc621f-4b90-4358-88bb-b5129fc6b581,uns-broker,outbound,devicehub.alias.PLC_PC01.LT301_PV,litmus/dortmund/pc01/LT301_PV,true,,1,1
+87cc621f-4b90-4358-88bb-b5129fc6b581,uns-broker,outbound,devicehub.alias.PLC_PC01.TT301_PV,litmus/dortmund/pc01/TT301_PV,true,,1,1
+87cc621f-4b90-4358-88bb-b5129fc6b581,uns-broker,outbound,devicehub.alias.PLC_PC01.XV302_POS,litmus/dortmund/pc01/XV302_POS,true,,1,1

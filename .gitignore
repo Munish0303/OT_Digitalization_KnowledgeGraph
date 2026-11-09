@@ -1,0 +1,23 @@
+# Runtime output (created by docker compose)
+generated/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Offline pip wheels (optional, pre-downloaded locally)
+services/wheels/*
+!services/wheels/.gitkeep
+
+# Node / build output
+node_modules/
+web/dist/
+web/.vercel/
+deck/render/
+
+# Local only
+.env
+deck/presentation_script*
+deck/_backup*/
+*.zip

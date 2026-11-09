@@ -1,0 +1,14 @@
+tag_id,cm_id,topic,datatype,eng_unit,description,lo,hi,hihi
+TT101.PV,TT101,givaudan/dortmund/production/pc01/r101/r101-temp/tt101/pv,float64,degC,R-101 product temperature,,90,94
+TV101.OUT,TV101,givaudan/dortmund/production/pc01/r101/r101-temp/tv101/out,float64,%,R-101 jacket steam valve output,,,
+PT102.PV,PT102,givaudan/dortmund/production/pc01/r101/r101-temp/pt102/pv,float64,bar,R-101 head pressure,,2.5,3
+FT103.PV,FT103,givaudan/dortmund/production/pc01/r101/r101-dose/ft103/pv,float64,kg/min,R-101 dosing flow,,,
+XV104.POS,XV104,givaudan/dortmund/production/pc01/r101/r101-dose/xv104/pos,int64,-,R-101 dosing valve position (0/1),,,
+M105.SPEED,M105,givaudan/dortmund/production/pc01/r101/r101-agit/m105/speed,float64,rpm,R-101 agitator speed,,,
+FT201.PV,FT201,givaudan/dortmund/production/pc01/m201/m201-dose/ft201/pv,float64,kg/min,M-201 dosing flow,20,,
+XV202.POS,XV202,givaudan/dortmund/production/pc01/m201/m201-dose/xv202/pos,int64,-,M-201 dosing valve position (0/1),,,
+M203.SPEED,M203,givaudan/dortmund/production/pc01/m201/m201-agit/m203/speed,float64,rpm,M-201 agitator speed,,,
+TT204.PV,TT204,givaudan/dortmund/production/pc01/m201/m201-agit/tt204/pv,float64,degC,M-201 product temperature,,35,40
+LT301.PV,LT301,givaudan/dortmund/production/pc01/t301/t301-fill/lt301/pv,float64,%,T-301 level,,95,98
+TT301.PV,TT301,givaudan/dortmund/production/pc01/t301/t301-fill/tt301/pv,float64,degC,T-301 product temperature,,30,35
+XV302.POS,XV302,givaudan/dortmund/production/pc01/t301/t301-fill/xv302/pos,int64,-,T-301 inlet valve position (0/1),,,
